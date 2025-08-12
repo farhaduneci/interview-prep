@@ -51,7 +51,7 @@ def solution(s: str) -> int:
         elif char == PARAN_CLOSE:
             if stack:
                 stack.pop()
-                if eval_stack:
+                if eval_stack:  # If there's a previous eval context
                     current_eval = 2**current_eval + eval_stack.pop()
             else:
                 current_eval = 1
@@ -72,8 +72,9 @@ class TestSolution(unittest.TestCase):
     ]
 
     def test_examples(self):
-        for s, expected in self.TEST_CASES:
-            self.assertEqual(solution(s), expected)
+        for case, expected in self.TEST_CASES:
+            with self.subTest(case=case):
+                self.assertEqual(solution(case), expected)
 
 
 if __name__ == "__main__":
